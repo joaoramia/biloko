@@ -2,7 +2,7 @@
 var router = require('express').Router();
 module.exports = router;
 
-router.use('/video', require('./video'));
+// router.use('/video', require('./video'));
 
 // Make sure this is after all of
 // the registered routes!

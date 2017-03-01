@@ -1,13 +1,12 @@
 {
-  "name": "mdf",
+  "name": "biloko",
   "version": "1.0.0",
-  "description": "mini donuts factory",
+  "description": "biloko",
   "main": "app.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "clean:babelrc": "find ./node_modules -name react-packager -prune -o -name '.babelrc' -print | xargs rm -f",
-    "postinstall": "npm run clean:babelrc"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +18,7 @@
     "nodemon": "^1.9.2",
     "path": "^0.12.7",
     "pg": "^6.1.2",
-    "sequelize": "^3.30.2"
+    "sequelize": "^3.30.2",
+    "aws-sdk": "*"
   }
 }
