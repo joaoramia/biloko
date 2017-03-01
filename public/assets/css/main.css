@@ -1,0 +1,54 @@
+.IIV::-webkit-media-controls-play-button,
+.IIV::-webkit-media-controls-start-playback-button {
+    pointer-events: none;
+    width: 5px;
+}
+
+.mejs-captions-layer {
+    font-size: 12px;
+    color: yellow;
+}
+.mejs-container-fullscreen .mejs-captions-layer {
+    font-size: 40px;
+    line-height: 50px;
+}
+
+header {
+  background: rgba(255, 255, 255, 1);
+  color: #2C3E50;
+}
+
+#mainNav {
+  z-index: 10 !important;
+}
+
+#standup, #variados {
+  background: #DAE8E1;
+}
+
+.mejs__captions-text {
+  font-size: 23px;
+  line-height: normal;
+  font-weight: normal;
+  color: #FFE300;
+  text-shadow: #000000 0px 0px 13px;
+  font-family: Arial,Helvetica;
+  font-weight: bolder;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.mejs__captions-position {
+  margin-bottom: 5px;
+}
+
+@media screen and (max-width: 1000px) {
+  .mejs__captions-text {
+    font-size: 19px;
+	}
+
+  .mejs__captions-position {
+    margin-bottom: 0px;
+  }
+
+}
