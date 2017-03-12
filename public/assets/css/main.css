@@ -1,3 +1,13 @@
+.new {
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -3px black;
+}
+
+.new-dark {
+  color: white;
+  text-shadow: -1px 0 #0F7BB2, 0 1px #0F7BB2, 1px 0 #0F7BB2, 0 -3px #0F7BB2;
+}
+
 .IIV::-webkit-media-controls-play-button,
 .IIV::-webkit-media-controls-start-playback-button {
     pointer-events: none;
@@ -8,6 +18,23 @@
     font-size: 12px;
     color: yellow;
 }
+
+.mejs__captions-text {
+  font-size: 26px;
+  line-height: normal;
+  font-weight: normal;
+  color: #FFE300;
+  text-shadow: #000000 0px 0px 16px;
+  font-family: Arial,Helvetica;
+  font-weight: bolder;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.mejs__captions-position {
+  margin-bottom: 5px;
+}
+
 .mejs-container-fullscreen .mejs-captions-layer {
     font-size: 40px;
     line-height: 50px;
@@ -26,25 +53,34 @@ header {
   background: #DAE8E1;
 }
 
-.mejs__captions-text {
-  font-size: 23px;
-  line-height: normal;
-  font-weight: normal;
-  color: #FFE300;
-  text-shadow: #000000 0px 0px 13px;
-  font-family: Arial,Helvetica;
-  font-weight: bolder;
-  background: none !important;
-  box-shadow: none !important;
+.videos img {
+  width: 100%;
 }
 
-.mejs__captions-position {
-  margin-bottom: 5px;
+.length {
+  position: absolute;
+  float: right;
+  bottom: 4px;
+  margin-left: 6px;
+  color: rgba(255, 255, 255, 0.7);
 }
+
+/*.testing {
+  font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: white !important;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -3px black;
+  font-size:20px;
+  position: absolute;
+  float: right;
+  margin-left: 6px;
+  color: rgba(255, 255, 255, 0.7);
+}*/
 
 @media screen and (max-width: 1000px) {
   .mejs__captions-text {
-    font-size: 19px;
+    font-size: 24px;
 	}
 
   .mejs__captions-position {
