@@ -1,0 +1,82 @@
+<div class="video-page" *ngIf="mode">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="video-div col-md-7">
+              <video class="mejs-player video-player" webkit-playsinline playsinline width="100%" height="100%" id="video-player">
+                  <source type="video/youtube" src="{{ mode ? 'https://www.youtube.com/watch?v=' + mode : ''}}">
+                  <track src="{{ mode ? ('assets/subtitles/' + mode + '.vtt') : ''}}" label="Portugues" kind="subtitles" srclang="pt" default="">
+              </video>
+
+              <div class="social-media col-xs-12">
+                <div class="rectangle share">
+                  <div class="share-text">
+                    Compartilhar
+                  </div>
+                </div>
+                <div *ngIf="mobile" class="square whatsapp">
+                  <div class="social-media-logo">
+                    <a
+                    [attr.href]="whatsappShare"
+                    data-action="share/whatsapp/share"
+                    ><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+                <div class="square facebook" (click)="shareFacebook()">
+                  <div class="social-media-logo">
+                    <a><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+                <div class="square twitter">
+                  <div class="social-media-logo">
+                    <a class="twitter-share-button"
+                      href="https://twitter.com/share"
+                      data-size="large"
+                      data-text="custom share text"
+                      data-url="https://linktosite"
+                      data-hashtags="example,demo"
+                      data-via="twitterdev"
+                      data-related="twitterapi,twitter"
+                      target="_blank">
+                      <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </div>
+                <div id="gplusShare" class="square google-plus" (click)="shareGPlus()">
+                  <div class="social-media-logo">
+                      <i class="fa fa-google-plus" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="video-info col-xs-12 col-sm-12 col-md-5 col-lg-5">
+              <span class="author">{{ currentVideo ? currentVideo.author : '' }}</span><br>
+              <span class="title">{{ mode ? currentVideo.title : '' }}</span><br><br>
+              <span class="description">{{ mode ? currentVideo.description : '' }}<br>
+                <a href="{{ mode ? 'https://www.youtube.com/watch?v=' + mode : ''}}" target="_blank">Veja o vídeo no YouTube</a>
+              </span><br><br>
+              <div class="next-div">
+                <span class="next">Próximo vídeo:</span><br>
+                <span class="next-video-title">{{ nextVideo.author + ' - ' + nextVideo.title }}</span><br>
+                <a routerLink="{{'/video/' + nextVideo.id}}" routerLinkActive="active">
+                    <img src="{{ 'assets/img/' + nextVideo.id + '.png' }}" class="next-video" alt="" (click)="changeVideo(nextVideo.id)">
+                    <div class="next-video-length">{{ nextVideo.length }}</div>
+                </a>
+              </div>
+            </div>
+        </div>
+        <div id="comments" class="col-xs-12 col-sm-10 col-md-7">
+          <div *ngIf="currentVideo"
+            class="fb-comments"
+            [attr.data-href]="url"
+            data-numposts="3"
+            data-colorscheme="light"
+            data-mobile="true"
+            data-order-by="social">
+          </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

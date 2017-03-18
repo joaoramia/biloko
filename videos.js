@@ -1,5 +1,50 @@
 var Videos = [
   {
+    author: 'Ismo Leikola',
+    title: 'Dinheiro Mudo',
+    id: 'LHUQby2BUHA',
+    type: 'Stand Up Comedy',
+    description: 'Como a língua inglesa tem tantas palavras com letras mudas',
+    length: '1:11',
+    views: 90083
+  },
+  {
+    author: 'Ismo Leikola',
+    title: 'Africa',
+    id: 'vtRaGrIbF6Y',
+    type: 'Stand Up Comedy',
+    description: 'Minha mãe me dizia pra comer tudo porque tem fome na Africa',
+    length: '1:05',
+    views: 56067
+  },
+  {
+    author: 'Ismo Leikola',
+    title: 'Super Homem',
+    id: 'uLH_QHTptFg',
+    type: 'Stand Up Comedy',
+    description: 'É um passaro? É um avião?',
+    length: '1:54',
+    views: 95115
+  },
+  {
+    author: 'Dan Levy',
+    title: 'Justin Timberlake',
+    id: 'lD91Fv9Zg6s',
+    type: 'Stand Up Comedy',
+    description: 'O dia em que encontrei o Justin Timberlake',
+    length: '2:29',
+    views: 157855
+  },
+  {
+    author: 'Erik Myers',
+    title: 'Viciado Esquisito',
+    id: 'I8PxOFol0xI',
+    type: 'Stand Up Comedy',
+    description: 'Como algumas pessoas se viciam em coisas tão estranhas',
+    length: '2:10',
+    views: 181764
+  },
+  {
     author: 'Dov Davidoff',
     title: 'Droga do Amor',
     id: 'XpBE6lt9VWM',
@@ -39,13 +84,13 @@ var Videos = [
     description: 'James Smith conta como foi sua mudança da Australia para os Estados Unidos',
     length: '4:49'
   },
-  // {
-  //   author: 'Tom Dreesen',
-  //   title: 'Ex Mulher',
-  //   id: 'j1adUEFHWSQ',
-  //   type: 'Stand Up Comedy',
-  //   description: 'Tom Dreesen comenta sobre sua adorável ex mulher'
-  // },
+  {
+    author: 'Tom Dreesen',
+    title: 'Ex Mulher',
+    id: 'j1adUEFHWSQ',
+    type: 'Stand Up Comedy',
+    description: 'Tom Dreesen comenta sobre sua adorável ex mulher'
+  },
   {
     author: "Chris D'Elia",
     title: 'Risadas de Rapper',

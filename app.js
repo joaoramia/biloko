@@ -5,26 +5,36 @@ var path = require('path');
 var session = require('express-session');
 var swig = require('swig');
 var Videos = require('./videos.js');
+var routes = require('./routes/index.js');
 
 var swig = new swig.Swig();
+
+var MongoClient = require('mongodb').MongoClient
+  , assert = require('assert');
+
+// Connection URL
+var url = 'mongodb://localhost:27017/myproject';
+
+// Use connect method to connect to the server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+
+  db.close();
+});
+
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 
-// var db = require('./db');
-// var SequelizeStore = require('connect-session-sequelize')(session.Store);
-//
-// var dbStore = new SequelizeStore({
-//     db: db
-// });
-
 app.use(compression());
-app.use(express.static(path.join(__dirname + '/public')));
+app.use(express.static(path.join(__dirname + '/public/dist')));
 app.use(express.static(path.join(__dirname + '/node_modules')));
+app.use('/v1', routes);
 
 app.get('/video/:id', function (req, res) {
     var video = findVideo(req.params.id);
 
-    res.render(path.join(__dirname + '/public/index.html'), {
+    res.render(path.join(__dirname + '/public/dist/index.html'), {
       title: video.title,
       description: video.description,
       url: 'http://www.tradoo.com.br/video/' + video.id,
@@ -35,7 +45,7 @@ app.get('/video/:id', function (req, res) {
 
 app.all('/*', function (req, res) {
     var video = findVideo('fakeId');
-    res.render(path.join(__dirname + '/public/index.html'), {
+    res.render(path.join(__dirname + '/public/dist/index.html'), {
       title: video.title,
       description: video.description,
       url: 'http://www.tradoo.com.br' + req.originalUrl,
@@ -47,7 +57,9 @@ app.all('/*', function (req, res) {
 function findVideo(id){
     var videoFound;
     Videos.forEach(function(video){
-        if(video.id == id) videoFound = video;
+        if(video.id == id) {
+          videoFound = video;
+        }
     })
     if(videoFound) {
         return videoFound;

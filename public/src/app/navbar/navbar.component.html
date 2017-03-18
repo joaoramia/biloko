@@ -1,0 +1,35 @@
+<!-- Navigation -->
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom affix" style="z-index: 10;">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" routerLink="/home" routerLinkActive="active">TRADOO</a>
+            <div class="search">
+              <form class="search-form" (submit)="search()">
+                <i class="fa fa-search search-button" aria-hidden="true" (click)="search()"></i>
+                <input class="search-input" type="text" [(ngModel)]="searchWord" name="search">
+              </form>
+            </div>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="page-scroll">
+                    <a routerLink="/standup" routerLinkActive="active">Stand Up Comedy</a>
+                </li>
+                <li class="page-scroll">
+                    <a routerLink="/sketches" routerLinkActive="active">Sketches</a>
+                </li>
+                <li class="page-scroll">
+                    <a routerLink="/pranks" routerLinkActive="active">Pranks</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>

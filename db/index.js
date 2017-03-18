@@ -1,13 +1,13 @@
-'use strict';
-var db = require('./_db');
+var MongoClient = require('mongodb').MongoClient
+  , assert = require('assert');
 
-var video = require('./models/video');
+// Connection URL
+var url = 'mongodb://localhost:27017/myproject';
 
-db.sync({ force: true })
-.then(function(err) {
-  console.log('It worked!');
-}, function (err) {
-  console.log('An error occurred while creating the table:', err);
+// Use connect method to connect to the server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+
+  db.close();
 });
-
-module.exports = db;
