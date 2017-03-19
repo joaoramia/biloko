@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { AdminService } from './admin.service';
+import { VideoEditorService } from './video-editor.service';
 
-describe('AdminService', () => {
+describe('VideoEditorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AdminService]
+      providers: [VideoEditorService]
     });
   });
 
-  it('should ...', inject([AdminService], (service: AdminService) => {
+  it('should ...', inject([VideoEditorService], (service: VideoEditorService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -10,8 +10,8 @@
             <div *ngFor="let video of videos, let i = index" class="col-sm-4 portfolio-item">
               <h3><span *ngIf="i == 0" class="new"><i class="fa fa-bolt" aria-hidden="true"></i> NOVO</span> {{ video.title }}</h3>
               <h5>{{ video.author }}</h5>
-                <a class="portfolio-link" routerLink="{{ '/video/' + video.id }}" routerLinkActive="active">
-                    <img src="{{ 'assets/img/' + video.id + '.png' }}" class="img-responsive" alt="">
+                <a class="portfolio-link" routerLink="{{ '/video/' + video.youtubeID }}" routerLinkActive="active">
+                    <img src="{{ 'assets/img/' + video.youtubeID + '.png' }}" class="img-responsive" alt="">
                     <div class="length">{{ video.length }}</div>
                 </a>
             </div>

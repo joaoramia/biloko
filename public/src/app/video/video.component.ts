@@ -2,7 +2,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { Special, Standups, Sketches, Pranks } from '../videos';
+import { Special, Standups, Sketches, Pranks, All } from '../videos';
+import { VideoEditorService } from '../video-editor.service';
 
 declare var jQuery:any;
 
@@ -13,7 +14,8 @@ declare var FB:any;
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
-  styleUrls: ['./video.component.css']
+  styleUrls: ['./video.component.css'],
+  providers: [VideoEditorService]
 })
 export class VideoComponent implements OnInit, AfterViewInit {
 
@@ -30,10 +32,10 @@ export class VideoComponent implements OnInit, AfterViewInit {
   mobile: boolean = false;
   firstPlay: boolean = true;
 
-  constructor(private route: ActivatedRoute, private router: Router, private titleService: Title, private sanitizer: DomSanitizer) {
+  constructor(private route: ActivatedRoute, private router: Router, private titleService: Title, private sanitizer: DomSanitizer, private videoEditorService: VideoEditorService) {
       router.events.subscribe((val) => {
           this.url = 'http://www.tradoo.com.br' + val.url;
-          if (typeof FB != 'undefined' && this.changedVideo) this.changeDomain();
+          if (typeof FB != 'undefined') this.changeDomain();
           this.whatsappShare = 'whatsapp://send?text=';
           this.whatsappShare += this.url;
           this.whatsappShare = this.sanitizer.bypassSecurityTrustUrl(this.whatsappShare);
@@ -47,20 +49,39 @@ export class VideoComponent implements OnInit, AfterViewInit {
       this.route
       .params
       .subscribe(params => {
+          this.mode = params['id'];
           this.id = params['id'];
-          this.getCurrentAndNextVideo();
+          this.getVideos();
       });
 
       // When the window is resized
       jQuery(window).resize(function() {
           jQuery('#video-player_youtube_iframe').css({"height": "100%", "width": "100%"});
       }).resize();
+      this.changeDomain()
+  }
+
+  getVideos(){
+      if (All.length) {
+          this.videos = All;
+          this.getCurrentAndNextVideo();
+          // this.makePlayer();
+      }
+      else {
+          this.videoEditorService.getAll()
+          .subscribe(videos => {
+            this.videos = videos;
+            All.concat(videos);
+            this.getCurrentAndNextVideo();
+            // this.makePlayer();
+          });
+      }
   }
 
   getCurrentAndNextVideo(): void {
       let found = false;
       this.videos.forEach((video, index) => {
-          if (video.id == this.id){
+          if (video.youtubeID == this.id){
               this.mode = this.id;
               found = true;
               this.currentVideo = video;
@@ -77,31 +98,55 @@ export class VideoComponent implements OnInit, AfterViewInit {
           this.router.navigate(['/home']);
       }
       this.changeVideo(this.mode);
+
   }
 
   ngAfterViewInit() {
-    let temp = this;
-    this.player = new window['MediaElementPlayer']('#video-player', {
-      plugins: ['youtube'],
-      'webkit-playsinline': 'webkit-playsinline',
-      playsinline: 'playsinline',
-      startLanguage: 'pt',
-      success: (mediaElement, domObject) => {
-        mediaElement.addEventListener('play', function(e) {
-            if (temp.firstPlay) {
-                temp.enterFullScreen();
-                temp.firstPlay = false;
-            }
-       }, false);
-      }
-    });
+    // let temp = this;
+    // this.player = new window['MediaElementPlayer']('#video-player', {
+    //   plugins: ['youtube'],
+    //   'webkit-playsinline': 'webkit-playsinline',
+    //   playsinline: 'playsinline',
+    //   startLanguage: 'pt',
+    //   success: (mediaElement, domObject) => {
+    //     mediaElement.addEventListener('play', function(e) {
+    //         if (temp.firstPlay) {
+    //             temp.enterFullScreen();
+    //             temp.firstPlay = false;
+    //         }
+    //    }, false);
+    //   }
+    // });
+    // console.log(this.player);
+    //
+    // this.getFBComments(document, 'script', 'facebook-jssdk');
+  }
 
-    this.getFBComments(document, 'script', 'facebook-jssdk');
+  makePlayer(){
+      // let temp = this;
+      // this.player = new window['MediaElementPlayer']('#video-player', {
+      //   plugins: ['youtube'],
+      //   'webkit-playsinline': 'webkit-playsinline',
+      //   playsinline: 'playsinline',
+      //   startLanguage: 'pt',
+      //   success: (mediaElement, domObject) => {
+      //     mediaElement.addEventListener('play', function(e) {
+      //         if (temp.firstPlay) {
+      //             temp.enterFullScreen();
+      //             temp.firstPlay = false;
+      //         }
+      //    }, false);
+      //   }
+      // });
+
+      this.getFBComments(document, 'script', 'facebook-jssdk');
   }
 
   changeVideo(nextVideoId: string): void {
       let temp = this;
       this.mode = nextVideoId;
+
+      console.log(this.player);
 
       if (this.player) this.player.remove();
 

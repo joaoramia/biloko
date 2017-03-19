@@ -16,7 +16,10 @@ import { SketchesComponent } from './sketches/sketches.component';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { PranksComponent } from './pranks/pranks.component';
 import { SearchComponent } from './search/search.component';
-import { AdminComponent } from './admin/admin.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { VideoEditorComponent } from './video-editor/video-editor.component';
 
 let currentVideo;
 
@@ -46,8 +49,16 @@ const appRoutes: Routes = [
     component: SearchComponent
   },
   {
-    path: 'getoutofheremotherfucker',
-    component: AdminComponent
+    path: 'video-editor',
+    component: VideoEditorComponent
+  },
+  {
+    path: 'tbd/login',
+    component: LoginComponent
+  },
+  {
+    path: 'tbd/signup',
+    component: RegisterComponent
   },
   { path: '',
     redirectTo: '/home',
@@ -67,7 +78,10 @@ const appRoutes: Routes = [
     SketchesComponent,
     PranksComponent,
     SearchComponent,
-    AdminComponent
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
+    VideoEditorComponent
   ],
   imports: [
     BrowserModule,

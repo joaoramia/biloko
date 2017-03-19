@@ -1,79 +1,81 @@
 var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var passport = require('passport');
+require('./app_api/models/db');
+require('./app_api/config/passport');
+
+// [SH] Bring in the routes for the API (delete the default routes)
+var routesApi = require('./app_api/routes/index');
+
 var app = express();
 var compression = require('compression');
-var path = require('path');
 var session = require('express-session');
 var swig = require('swig');
 var Videos = require('./videos.js');
-var routes = require('./routes/index.js');
+var videoRoutes = require('./routes/video');
 
 var swig = new swig.Swig();
-
-var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
-
-// Connection URL
-var url = 'mongodb://localhost:27017/myproject';
-
-// Use connect method to connect to the server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log("Connected successfully to server");
-
-  db.close();
-});
 
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization');
+  res.header('Access-Control-Allow-Methods', '*');
+  res.header('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
+  res.header('Access-Control-Max-Age', '1000');
+  next();
+});
+
+// NEW
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+// [SH] Set the app_client folder to serve static resources
+app.use(express.static(path.join(__dirname, 'app_client')));
+
+// [SH] Initialise Passport before using the route middleware
+app.use(passport.initialize());
+
+app.use('/api', routesApi);
+
+// error handlers
+// Catch unauthorised errors
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401);
+    res.json({"message" : err.name + ": " + err.message});
+  }
+});
+
+
 app.use(compression());
 app.use(express.static(path.join(__dirname + '/public/dist')));
 app.use(express.static(path.join(__dirname + '/node_modules')));
-app.use('/v1', routes);
 
-app.get('/video/:id', function (req, res) {
-    var video = findVideo(req.params.id);
 
-    res.render(path.join(__dirname + '/public/dist/index.html'), {
-      title: video.title,
-      description: video.description,
-      url: 'http://www.tradoo.com.br/video/' + video.id,
-      image: 'http://www.tradoo.com.br/assets/img/' + video.id + '.png',
-      imageUrl: 'http://www.tradoo.com.br/assets/img/' + video.id + '.png'
-    });
-});
+app.use('/video', videoRoutes);
 
 app.all('/*', function (req, res) {
-    var video = findVideo('fakeId');
     res.render(path.join(__dirname + '/public/dist/index.html'), {
-      title: video.title,
-      description: video.description,
-      url: 'http://www.tradoo.com.br' + req.originalUrl,
-      image: 'http://www.tradoo.com.br/assets/img/' + video.id + '.png',
-      imageUrl: 'http://www.tradoo.com.br/assets/img/' + video.id + '.png'
+        title: 'O Melhor do YouTube',
+        description: 'Os melhores videos do YouTube traduzidos para você',
+        url: 'http://www.tradoo.com.br',
+        image: 'http://www.tradoo.com.br/assets/img/mHbh9BUdwGY.png',
+        imageUrl: 'http://www.tradoo.com.br/assets/img/mHbh9BUdwGY.png'
     });
 });
-
-function findVideo(id){
-    var videoFound;
-    Videos.forEach(function(video){
-        if(video.id == id) {
-          videoFound = video;
-        }
-    })
-    if(videoFound) {
-        return videoFound;
-    }
-    else {
-        return {
-            author: 'Tradoo!',
-            title: 'O Melhor do YouTube',
-            id: 'mHbh9BUdwGY',
-            type: 'Stand Up Comedy',
-            description: 'Os melhores videos do YouTube traduzidos para você'
-        };
-    }
-}
 
 var server = app.listen(Number(process.env.PORT) || 3030, function () {
   console.log('App listening on port ', Number(process.env.PORT) || 3030);

@@ -1,0 +1,38 @@
+<div class="form-video">
+  <h2 class="form-signin-heading">Add</h2>
+  <label for="inputEmail" class="sr-only">Title</label>
+  <input type="text" id="inputText" class="form-control" placeholder="title" required="" autofocus="" [(ngModel)]="newVideo.title" name="title">
+  <label for="inputEmail" class="sr-only">Author</label>
+  <input type="text" id="inputText" class="form-control" placeholder="author" required="" autofocus="" [(ngModel)]="newVideo.author" name="author">
+  <label for="inputEmail" class="sr-only">Type</label>
+  <input type="text" id="inputText" class="form-control" placeholder="type" required="" autofocus="" [(ngModel)]="newVideo.type" name="type">
+  <label for="inputEmail" class="sr-only">Description</label>
+  <input type="text" id="inputText" class="form-control" placeholder="description" required="" autofocus="" [(ngModel)]="newVideo.description" name="description">
+  <label for="inputEmail" class="sr-only">youtubeID</label>
+  <input type="text" id="inputText" class="form-control" placeholder="youtubeID" required="" autofocus="" [(ngModel)]="newVideo.youtubeID" name="youtubeID">
+  <label for="inputEmail" class="sr-only">Length</label>
+  <input type="text" id="inputText" class="form-control" placeholder="length" required="" autofocus="" [(ngModel)]="newVideo.length" name="length">
+  <label for="inputEmail" class="sr-only">Views</label>
+  <input type="number" id="inputText" class="form-control" placeholder="views" required="" autofocus="" [(ngModel)]="newVideo.views" name="views">
+  <button class="btn btn-lg btn-primary btn-block" (click)="add()">Add</button>
+</div>
+
+<div class="form-video-edit col-xs-12" *ngFor="let video of videos; let i = index">
+  <img src="{{ 'assets/img/' + video.youtubeID + '.png' }}" class="img-responsive col-xs-12" alt="">
+  <h2 class="form-signin-heading">{{i + 1}} {{video.title}}</h2>
+  <label for="inputEmail" class="col-xs-12">Title</label>
+  <input type="text" id="inputText" class="form-control" placeholder="title" required="" autofocus="" [(ngModel)]="video.title" name="title">
+  <label for="inputEmail" class="col-xs-12">Author</label>
+  <input type="text" id="inputText" class="form-control" placeholder="author" required="" autofocus="" [(ngModel)]="video.author" name="author">
+  <label for="inputEmail" class="col-xs-12">Type</label>
+  <input type="text" id="inputText" class="form-control" placeholder="type" required="" autofocus="" [(ngModel)]="video.type" name="type">
+  <label for="inputEmail" class="col-xs-12">Description</label>
+  <input type="text" id="inputText" class="form-control" placeholder="description" required="" autofocus="" [(ngModel)]="video.description" name="description">
+  <label for="inputEmail" class="col-xs-12">youtubeID</label>
+  <input type="text" id="inputText" class="form-control" placeholder="youtubeID" required="" autofocus="" [(ngModel)]="video.youtubeID" name="youtubeID">
+  <label for="inputEmail" class="col-xs-12">Length</label>
+  <input type="text" id="inputText" class="form-control" placeholder="length" required="" autofocus="" [(ngModel)]="video.length" name="length">
+  <label for="inputEmail" class="col-xs-12">Views</label>
+  <input type="number" id="inputText" class="form-control" placeholder="views" required="" autofocus="" [(ngModel)]="video.views" name="views">
+  <button class="btn btn-lg btn-primary btn-block" (click)="update(video)">Update</button>
+</div>

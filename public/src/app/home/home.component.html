@@ -3,11 +3,11 @@
     <div class="container video-entrada">
         <div class="row">
             <div class="col-lg-12">
-                <div class="intro-text">
+                <div class="intro-text" *ngIf="special">
                     <span class="name">Destaque</span>
                     <div class="mySlides first">
-                      <div class="title" (click)="goTo('/video/' + special.id)">{{ special.author }}<br>{{ special.title }}</div>
-                      <img src="{{ 'assets/img/' + special.id + '.png' }}" (click)="goTo('/video/' + special.id)">
+                      <div class="title" (click)="goTo('/video/' + special.youtubeID)">{{ special.author }}<br>{{ special.title }}</div>
+                      <img *ngIf="special.youtubeID" src="{{ 'assets/img/' + special.youtubeID + '.png' }}" (click)="goTo('/video/' + special.youtubeID)">
                     </div>
                 </div>
             </div>
@@ -23,12 +23,12 @@
                 <h2 class="test-estilos">Stand Up Comedy</h2>
             </div>
         </div>
-        <div class="row videos">
+        <div class="row videos" *ngIf="standups.length">
             <div *ngFor="let i of numbers" class="col-sm-4 portfolio-item">
               <h3><span *ngIf="i == 0" class="new"><i class="fa fa-bolt" aria-hidden="true"></i> NOVO</span> {{ standups[i].title }}</h3>
               <h5>{{ standups[i].author }}</h5>
-                <a class="portfolio-link" routerLink="{{ '/video/' + standups[i].id }}" routerLinkActive="active">
-                    <img src="{{ 'assets/img/' + standups[i].id + '.png' }}" class="img-responsive" alt="">
+                <a class="portfolio-link" routerLink="{{ '/video/' + standups[i].youtubeID }}" routerLinkActive="active">
+                    <img src="{{ 'assets/img/' + standups[i].youtubeID + '.png' }}" class="img-responsive" alt="">
                     <div class="length">{{ standups[i].length }}</div>
                 </a>
             </div>
@@ -47,12 +47,12 @@
                 <h2 class="test-estilos">Sketches</h2>
             </div>
         </div>
-        <div class="row videos">
+        <div class="row videos" *ngIf="sketches.length">
             <div *ngFor="let i of numbers" class="col-sm-4 portfolio-item">
               <h3><span *ngIf="i == 0" class="new-dark"><i class="fa fa-bolt" aria-hidden="true"></i> NOVO</span> {{ sketches[i].title }}</h3>
               <h5>{{ sketches[i].author }}</h5>
-                <a class="portfolio-link" routerLink="{{ '/video/' + sketches[i].id }}" routerLinkActive="active">
-                    <img src="{{ 'assets/img/' + sketches[i].id + '.png' }}" class="img-responsive" alt="">
+                <a class="portfolio-link" routerLink="{{ '/video/' + sketches[i].youtubeID }}" routerLinkActive="active">
+                    <img src="{{ 'assets/img/' + sketches[i].youtubeID + '.png' }}" class="img-responsive" alt="">
                     <div class="length">{{ sketches[i].length }}</div>
                 </a>
             </div>
@@ -71,13 +71,13 @@
                 <h2 class="test-estilos">Pranks</h2>
             </div>
         </div>
-        <div class="row videos">
+        <div class="row videos" *ngIf="pranks.length">
             <div *ngFor="let i of numbers; let i = index" class="col-sm-4 portfolio-item">
               <!-- <span class="new"><i class="fa fa-bolt" aria-hidden="true"></i></span> -->
               <h3><span *ngIf="i == 0" class="new"><i class="fa fa-bolt" aria-hidden="true"></i> NOVO</span> {{ pranks[i].title }}</h3>
               <h5>{{ pranks[i].author }}</h5>
-                <a class="portfolio-link" routerLink="{{ '/video/' + pranks[i].id }}" routerLinkActive="active">
-                    <img src="{{ 'assets/img/' + pranks[i].id + '.png' }}" class="img-responsive" alt="">
+                <a class="portfolio-link" routerLink="{{ '/video/' + pranks[i].youtubeID }}" routerLinkActive="active">
+                    <img src="{{ 'assets/img/' + pranks[i].youtubeID + '.png' }}" class="img-responsive" alt="">
                     <div class="length">{{ pranks[i].length }}</div>
                 </a>
             </div>

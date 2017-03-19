@@ -1,7 +1,6 @@
 <div class="video-page" *ngIf="mode">
     <div class="row">
         <div class="col-lg-12">
-
             <div class="video-div col-md-7">
               <video class="mejs-player video-player" webkit-playsinline playsinline width="100%" height="100%" id="video-player">
                   <source type="video/youtube" src="{{ mode ? 'https://www.youtube.com/watch?v=' + mode : ''}}">
@@ -50,7 +49,7 @@
               </div>
             </div>
 
-            <div class="video-info col-xs-12 col-sm-12 col-md-5 col-lg-5">
+            <div class="video-info col-xs-12 col-sm-12 col-md-5 col-lg-5" *ngIf="nextVideo">
               <span class="author">{{ currentVideo ? currentVideo.author : '' }}</span><br>
               <span class="title">{{ mode ? currentVideo.title : '' }}</span><br><br>
               <span class="description">{{ mode ? currentVideo.description : '' }}<br>
@@ -59,8 +58,8 @@
               <div class="next-div">
                 <span class="next">Próximo vídeo:</span><br>
                 <span class="next-video-title">{{ nextVideo.author + ' - ' + nextVideo.title }}</span><br>
-                <a routerLink="{{'/video/' + nextVideo.id}}" routerLinkActive="active">
-                    <img src="{{ 'assets/img/' + nextVideo.id + '.png' }}" class="next-video" alt="" (click)="changeVideo(nextVideo.id)">
+                <a routerLink="{{'/video/' + nextVideo.youtubeID}}" routerLinkActive="active">
+                    <img src="{{ 'assets/img/' + nextVideo.youtubeID + '.png' }}" class="next-video" alt="" (click)="changeVideo(nextVideo.youtubeID)">
                     <div class="next-video-length">{{ nextVideo.length }}</div>
                 </a>
               </div>
